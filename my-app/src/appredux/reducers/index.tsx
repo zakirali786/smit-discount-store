@@ -23,7 +23,7 @@ export const DiscountStoreSlice = createSlice({
             console.log(state, action.payload)
         },
         addToCart: (state , action) =>{
-           state.cart.push()
+           state.cart.push(action.payload)
         }
     }
  })

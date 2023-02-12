@@ -7,7 +7,7 @@ import Login from "./component/login"
 import AppRouter from "./approuter/index"
 import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
-
+import shoppingCart from "./component/imgs/shopping-cart.png"
 function App() {
   return (
     <div className="App">
@@ -22,7 +22,7 @@ function App() {
                                 key: "home",
                             }, 
                             {
-                                label: (<Link to ="/cart" >cart</Link>),
+                                label: (<Link to ="/cart" ><img width="100%" height="50%" style={{marginTop:'10px'}} src={shoppingCart} /></Link>),
                                 key:"cart", 
                             }
                         ]}
