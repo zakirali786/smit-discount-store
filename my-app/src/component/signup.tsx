@@ -2,11 +2,15 @@ import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
 import "./login.css"
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import { getDatabase, ref, push } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {auth , db} from "../appconfigration/index" 
+import { useDispatch } from 'react-redux';
+import { addUser } from '../appredux/reducers';
 const Signup: React.FC = () => {
+  const navigate = useNavigate()
+  const dispactch = useDispatch()
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);   
     // const db = getDatabase();///
@@ -20,7 +24,11 @@ const Signup: React.FC = () => {
             password:password,
             fullname:username,
           })
-          .then(() => console.log("saved user data successfully"))
+          .then(() =>{
+             navigate('/')
+             dispactch(addUser(user))
+             console.log("saved user data successfully")}
+             )
                     .catch((err) => console.log(err))
         })  
       .catch((error) => {

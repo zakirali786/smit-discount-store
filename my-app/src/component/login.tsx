@@ -5,10 +5,12 @@ import "./login.css"
 import {Link} from "react-router-dom" 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { addUser } from '../appredux/reducers';
 
 const Login: React.FC = () => {
   const navigate = useNavigate()
-
+  const dispatch = useDispatch()
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
     const {email , password} = values
@@ -18,6 +20,7 @@ signInWithEmailAndPassword(auth, email, password)
         navigate('/')
     console.log(userCredential)  
     const user = userCredential.user;
+    dispatch(addUser(user))
   })
   .catch((error) => {
     const errorCode = error.code;

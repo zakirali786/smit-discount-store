@@ -1,21 +1,38 @@
 // @ts-nocheck
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Art from "./imgs/download.jpg"
 import { Row, Col, Image, Card, Button, } from 'antd';
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import { addToCart } from "../appredux/reducers";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Flex() {
     const [productsData, setProductsData] = useState([
-        { name: "item1", price: "000" },
-        { name: "item2", price: "000" },
-        { name: "item3", price: "000" }
+        { name: "item1", price: "000" , key: 1},
+        { name: "item2", price: "000" , key: 2},
+        { name: "item3", price: "000" , key: 3}
     ]);
+    const prDt = useSelector(state => state.product)
     const dispatch = useDispatch()
     const addtocart = (item) => {
+
         dispatch(addToCart(item))
+        toast('Product Added to Cart!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
 
     }
+    useEffect(()=>{
+        setProductsData(prDt)
+        
+    },[])
     return (
         <div style={{
             marginTop: 50,
@@ -57,6 +74,19 @@ function Flex() {
                 }
 
             </Row>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                />
+                {/* Same as */}
+            <ToastContainer />
         </div>
     );
 }
